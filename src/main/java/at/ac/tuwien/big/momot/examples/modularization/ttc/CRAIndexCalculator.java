@@ -74,7 +74,7 @@ public class CRAIndexCalculator {
 	    System.out.println("------------------------------------------\n");
 	}
 
-	private static void printCorrectnessInfo(ClassModel model) {
+	public static void printCorrectnessInfo(ClassModel model) {
 		 System.out.println("------------------------------------------");
 		 System.out.println("Correctness");
 		 System.out.println("------------------------------------------");
@@ -87,7 +87,7 @@ public class CRAIndexCalculator {
 		 System.out.println("------------------------------------------\n");
 	}
 
-	static boolean checkAllClassesDifferentNames(ClassModel model) {
+	public static boolean checkAllClassesDifferentNames(ClassModel model) {
 		boolean violated = false;
 		List<String> classesNames = new ArrayList<String>();
 		for (Class clazz : model.getClasses()) {
@@ -103,7 +103,7 @@ public class CRAIndexCalculator {
 		return violated;
 	}
 
-	static boolean checkAllFeaturesEncapsulated(ClassModel model) {
+	public static boolean checkAllFeaturesEncapsulated(ClassModel model) {
 		boolean violated = false;
 		for (Feature feature : model.getFeatures()){
 			if(feature.getIsEncapsulatedBy() == null){
@@ -116,7 +116,7 @@ public class CRAIndexCalculator {
 		return violated;
 	}
 
-	static double calculateCohesion(ClassModel model) {
+	public static double calculateCohesion(ClassModel model) {
 		double cohesionRatio = 0.0;
 		for(Class clazz : model.getClasses()) {
 			if(getMethodsClass(clazz).size()==0){
@@ -139,11 +139,11 @@ public class CRAIndexCalculator {
 		return cohesionRatio;
 	}
 
-	static double calculateCRAIndex(ClassModel model) {
+	public static double calculateCRAIndex(ClassModel model) {
 		return calculateCohesion(model) - calculateCoupling(model);
 	}
 
-	static double calculateCoupling(ClassModel model) {
+	public static double calculateCoupling(ClassModel model) {
 		double couplingRatio = 0;
 		for (Class clazz : model.getClasses())
 			couplingRatio += calculateCoupling(clazz, model);
