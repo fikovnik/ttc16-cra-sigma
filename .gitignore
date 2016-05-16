@@ -1,2 +1,11 @@
 .classpath
 .project
+doc/pre-processeding/ttc16-cra-sigma.aux
+doc/pre-processeding/ttc16-cra-sigma.bbl
+doc/pre-processeding/ttc16-cra-sigma.blg
+doc/pre-processeding/ttc16-cra-sigma.dvi
+doc/pre-processeding/ttc16-cra-sigma.fdb_latexmk
+doc/pre-processeding/ttc16-cra-sigma.fls
+doc/pre-processeding/ttc16-cra-sigma.log
+doc/pre-processeding/ttc16-cra-sigma.out
+doc/pre-processeding/ttc16-cra-sigma.synctex.gz

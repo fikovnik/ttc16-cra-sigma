@@ -6,6 +6,8 @@ version := "1.0"
 
 scalaVersion := "2.11.8"
 
+com.github.retronym.SbtOneJar.oneJarSettings
+
 resolvers += "SIGMA repository" at "https://dl.dropboxusercontent.com/u/4168936/mvn-repo"
 
 scalacOptions ++= Seq("-Xlint", "-feature", "-deprecation", "-unchecked")
@@ -24,6 +26,6 @@ libraryDependencies += "fr.unice.i3s.sigma" %% "sigma-emf-tools" % "1.0.0-SNAPSH
 
 libraryDependencies += "org.eclipse.emf" % "org.eclipse.emf.ecore.xmi" % "2.9.1-v20130827-0309"
 
-libraryDependencies += "org.scalactic" %% "scalactic" % "2.2.6"
+libraryDependencies += "org.apache.commons" % "commons-math3" % "3.6.1"
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.6" % "test"
+mainClass := Some("cz.cvut.fit.sigma.ttc16.cra.Main")

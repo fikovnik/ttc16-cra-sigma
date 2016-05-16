@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<architectureCRA:ClassModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:architectureCRA="http://momot.big.tuwien.ac.at/architectureCRA/1.0" xsi:schemaLocation="http://momot.big.tuwien.ac.at/architectureCRA/1.0 architectureCRA.ecore">
+<architectureCRA:ClassModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:architectureCRA="http://momot.big.tuwien.ac.at/architectureCRA/1.0" xsi:schemaLocation="http://momot.big.tuwien.ac.at/architectureCRA/1.0 ../src/main/resources/architectureCRA.ecore">
   <features xsi:type="architectureCRA:Method" name="M13" dataDependency="//@features.111 //@features.97 //@features.152" functionalDependency="//@features.43 //@features.22 //@features.15"/>
   <features xsi:type="architectureCRA:Method" name="M8" dataDependency="//@features.82 //@features.91 //@features.156" functionalDependency="//@features.31 //@features.68 //@features.71"/>
   <features xsi:type="architectureCRA:Method" name="M7" dataDependency="//@features.134 //@features.93" functionalDependency="//@features.25 //@features.14 //@features.18"/>
