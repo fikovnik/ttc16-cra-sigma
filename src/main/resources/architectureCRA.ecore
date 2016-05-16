@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="architecture" nsURI="http://momot.big.tuwien.ac.at/architectureCRA/1.0"
-    nsPrefix="architecture">
+    nsPrefix="architectureCRA">
   <eClassifiers xsi:type="ecore:EClass" name="ClassModel" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="classes" ordered="false"
         upperBound="-1" eType="#//Class" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="features" ordered="false"
-        upperBound="-1" eType="#//Feature" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
+        eType="#//Feature" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Class" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="encapsulates" lowerBound="1"
