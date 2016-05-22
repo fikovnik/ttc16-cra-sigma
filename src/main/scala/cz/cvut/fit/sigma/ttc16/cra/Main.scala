@@ -9,22 +9,24 @@ import fr.unice.i3s.sigma.emf.util.EMFUtils
 
 object Main extends App with Architecture {
 
-  if (args.length != 3) {
-    println(s"Missing required parameters: <algorithm> <path/to/input.xmi> <path/to/output.xmi>")
+  if (args.length != 2) {
+    println(s"Missing required parameters: <path/to/input.xmi> <path/to/output.xmi>")
     sys.exit(1)
   }
 
   EMFUtils.IO.registerDefaultFactories()
   CRAIndexCalculator.registerPackage()
 
-  val solver = args(0).trim.toUpperCase() match {
+  val algorithm = System.getProperty("algorithm", "NSGAIII")
+  val numRuns = System.getProperty("numRuns", "10").toInt
+
+  val solver = algorithm match {
     case "NSGAIII" => Solvers.NSGAIII
     case "SPEA2" => Solvers.SPEA2
     case x => throw new IllegalArgumentException("Unsupported algorithm " + x)
   }
-  val input = new File(args(1))
-  val output = new File(args(2))
-  val numRuns = Integer.valueOf(System.getProperty("numRuns", "10"))
+  val input = new File(args(0))
+  val output = new File(args(1))
 
   println(s"Solving ${input.getCanonicalPath} using $solver (running $numRuns)")
 

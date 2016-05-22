@@ -28,4 +28,4 @@ libraryDependencies += "org.eclipse.emf" % "org.eclipse.emf.ecore.xmi" % "2.9.1-
 
 libraryDependencies += "org.apache.commons" % "commons-math3" % "3.6.1"
 
-mainClass := Some("cz.cvut.fit.sigma.ttc16.cra.Main")
+mainClass in Compile := Some("cz.cvut.fit.sigma.ttc16.cra.Main")

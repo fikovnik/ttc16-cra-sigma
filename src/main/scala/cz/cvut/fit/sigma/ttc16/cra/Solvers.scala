@@ -10,39 +10,42 @@ import scala.collection.JavaConversions._
 object Solvers {
 
   trait Solver extends (ClassModel => ClassModel) {
-    def apply(initModel: ClassModel): ClassModel = {
+    val populationSize = System.getProperty("populationSize", "64").toInt
+    val maxEvaluations = System.getProperty("maxEvaluation", "10000").toInt
+
+    def apply(initModel: ClassModel): ClassModel =
       run(initModel)
         .map(x => CRAProblem.solutionToClassModel(initModel, x))
         .maxBy(CRAIndexCalculator.calculateCRAIndex)
-    }
 
     def run(initModel: ClassModel): NondominatedPopulation
+
+
+    protected def create(initModel: ClassModel): Executor =
+      new Executor()
+        .withProblemClass(classOf[CRAProblem], initModel)
+        .withProperty("populationSize", populationSize)
+        .withMaxEvaluations(maxEvaluations)
   }
 
   object NSGAIII extends Solver {
-    override def run(initModel: ClassModel): NondominatedPopulation = {
-      new Executor()
-        .withProblemClass(classOf[CRAProblem], initModel)
+    override def run(initModel: ClassModel) =
+      create(initModel)
         .withAlgorithm("NSGAIII")
-        .withProperty("populationSize", 64)
-        .withMaxEvaluations(10000)
         .run()
-    }
 
-    override def toString = s"NSGAIII"
+    override def toString = s"NSGAIII (pupulationSize=$populationSize)"
   }
 
   object SPEA2 extends Solver {
-    override def run(initModel: ClassModel): NondominatedPopulation = {
-      new Executor()
-        .withProblemClass(classOf[CRAProblem], initModel)
-        .withAlgorithm("SPEA2")
-        .withProperty("populationSize", 64)
-        .withProperty("archiveSize", 32)
-        .withMaxEvaluations(10000)
-        .run()
-    }
+    val archiveSize = System.getProperty("archiveSize", "32").toInt
 
-    override def toString = s"SPEA2"
+    override def run(initModel: ClassModel) =
+      create(initModel)
+        .withAlgorithm("SPEA2")
+        .withProperty("archiveSize", archiveSize)
+        .run()
+
+    override def toString = s"SPEA2 (pupulationSize=$populationSize, archiveSize=$archiveSize)"
   }
 }
