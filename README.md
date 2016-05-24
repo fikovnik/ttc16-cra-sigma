@@ -42,3 +42,29 @@ $ sbt
 > :load generate-sigma-support.scala-console
 ```
 
+## Sample Results
+
+The experiment was executed on 3,1 GHz Intel Core i7, 16GB RAM macBook Pro:
+
+```sh
+$ ./run.sh models
+```
+
+| Model          | Cohesion | Coupling | CRA   | Time [s] | Runs |
+|----------------|----------|----------|-------|----------|------|
+| TTC_InputRDG_A | 4        | 1        | 3     | 10       | 10   |
+| TTC_InputRDG_B | 6.67     | 2.58     | 4.08  | 13       | 10   |
+| TTC_InputRDG_C | 4.99     | 2.57     | 2.41  | 39       | 10   |
+| TTC_InputRDG_D | 9.36     | 8.50     | 0.87  | 91       | 10   |
+| TTC_InputRDG_E | 7.14     | 16.25    | -9.11 | 1416     | 10   |
+
+_Note: that the time is the total time of all the 10 runs._
+
+```sh
+$ ./run.sh additional-models -DnumRuns=1
+```
+
+| Model          | Cohesion | Coupling | CRA     | Time [s] | Runs |
+|----------------|----------|----------|---------|----------|------|
+| TTC_InputRDG_F | 9.87     | 39.37    | -29.50  | 234      | 1    |   
+| TTC_InputRDG_G | 9.76     | 369.44   | -359.68 | 1213     | 1    |
