@@ -3,12 +3,12 @@
 \section{Solution Description}
 \label{sec:SolutionDescription}
 
-The core of this case study is to transform a RDG model into a high-quality class digram (\Cf Figure~\ref{fig:Metamodel}).
+The core of this case study is to transform a RDG model into a high-quality class diagram (\Cf Figure~\ref{fig:Metamodel}).
 
 \begin{figure*}[h!tb]
   \centering
   \includegraphics[width=.6\textwidth]{figures/metamodel.pdf}
-  \caption{RDG and class model metamodel}
+  \caption{RDG and class model metamodel~\cite{Fleck2016}}
   \label{fig:Metamodel}
 \end{figure*}
 
@@ -19,18 +19,18 @@ The case study authors provide a set of utility functions that can compute all t
 The outline of the solution proposed in this paper is as follows:
 
 \begin{compactenum}
-  \item Loads the input RDG model from a given XMI file.
-  \item Transforms the RDG model into MOEA problem instance.
-  \item Runs the MOEA solver using either NSGA-III or SPEA2 algorithms.
-  \item From the possible solutions (which are part of a Pareto optimal front~\Cf below), selects the one with the highest CRA-Index.
-  \item Transforms the selected solution into class digram.
-  \item Saves the resulting class diagram into XMI file.
+  \item Load the input RDG model from a given XMI file.
+  \item Transform the RDG model into MOEA problem instance.
+  \item Run the MOEA solver using either NSGA-III or SPEA2 algorithms.
+  \item From the possible solutions (which are part of a Pareto optimal front~\Cf below), select the one with the highest CRA-Index.
+  \item Transform the selected solution into class digram.
+  \item Save the resulting class diagram into XMI file.
 \end{compactenum}
 
 \subsection{Transformations}
 
 An optimization problem defines a search space, or the set of possible solutions together with one or more objective functions.
-In our case the search space are all the valid class diagrams that can represent given RDG model.
+In our case the search space spans are all the valid class diagrams that can represent a given RDG model.
 The objectives are:
 %
 \begin{inparaenum}[(1)]
@@ -41,7 +41,8 @@ The objectives are:
 The functions that compute coupling and cohesion ratios from a class diagram are part of the case study description.
 What remains is to find the way how to represent the RDG model as a vector of variables that can be used in a evolutionary algorithm to find a solution.
 We use a simple integer vector where the index corresponds to the feature index in the input RDG model and the value corresponds to the index of a class in the resulting class diagram.
-The bound of each vector element is bounded between 0 and the number of features $- 1$ (since we use 0-based indexing).
+The range of each vector element is between 0 and the number of features $- 1$ (since we use 0-based indexing).
+In the worst case, (\Ie one feature per class), this actually equals to the number of features. 
 For example, a vector $\left( 3, 5, \dots \right)$ represents a solution in which first feature belongs to fourth class, second feature to sixth class, and so on and so forth.
 Figure~\ref{fig:SolutionOverview} shows a further example of this representation on the example input/output model pair from the case description~\cite{Fleck2016}.
 
@@ -119,7 +120,7 @@ The solver is responsible
   \item to find the Pareto optimal front of all possible solutions (subject to solver configuration), and
   \item to select the solution from that set which has the highest CRA-Index.
 \end{inparaenum}
-The Pareto optimal front refers to optimal solutions whose corresponding vectors are non-dominated by any other solution vector~\cite{bowman2010solving} and it can be found by MOEA \texttt{Executor}.
+The non-dominated, Pareto optimal front refers to optimal solutions whose corresponding vectors are non-dominated by any other solution vector~\cite{bowman2010solving} and it can be found by MOEA \texttt{Executor}.
 For example using the NSGA-III algorithm, we find the non-dominated vector as:
 %
 \begin{scalacode}
@@ -130,8 +131,9 @@ new Executor().withProblemClass(classOf[CRAProblem], initModel)
               .run()
 \end{scalacode}
 %
-The individual solutions in this vector are first converted to the class model using Listing~\ref{mnt:SolutionTransformation} and we use the given \texttt{calculateCRA} function to find the highest CRA.
-To have a better chance to find a good solution, we run each algorithm 10 times.
+The individual solutions in this vector are first converted to the class model using the function \texttt{solutionToClassModel}. 
+Then we use the given \texttt{calculateCRA} function to find the highest CRA.
+To have a better chance to find a good solution, we run each algorithm 10 times (this starts the algorithm from 10 different random seeds).
 The properties of each algorithm are defined based on the suggestion by Bowman~\Etal~\cite{bowman2010solving}.
 
 % The code is organized into three classes in \texttt{src/main/scala} folder:
